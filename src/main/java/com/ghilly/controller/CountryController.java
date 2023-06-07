@@ -3,12 +3,10 @@ package com.ghilly.controller;
 
 
 import com.ghilly.service.CountryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/country")
+@RequestMapping("/countries")
 public class CountryController {
 
 
@@ -18,13 +16,28 @@ public class CountryController {
         this.countryService = countryService;
     }
 
-    @GetMapping("/hello")
-    public String sayHello(){
-        return "Hello from Country and service " + countryService.serviceSaysHello();
+    @PostMapping ("/")
+    public String createCountry(){
+        return "This is the POST method from controller.";
     }
 
-    @GetMapping("/bye")
-    public String sayBye(){
-        return "Bye from Country and service " + countryService.serviceSaysHello();
+    @GetMapping("/")
+    public String getCountries(){
+        return "This is the GET method for all the countries from controller.";
+    }
+
+    @GetMapping("/{countryId}")
+    public String getCountry(@PathVariable String countryId){
+        return "This is the GET method for a country from controller " + countryId;
+    }
+
+    @PutMapping("/{countryId}")
+    public String updateCountry(@PathVariable String countryId){
+        return "This is the PUT method from controller " + countryId;
+    }
+
+    @DeleteMapping("/{countryId}")
+    public String deleteCountry(@PathVariable String countryId){
+        return "This is the DELETE method from controller " + countryId;
     }
 }
