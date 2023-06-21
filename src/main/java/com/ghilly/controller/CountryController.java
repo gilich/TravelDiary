@@ -2,8 +2,11 @@ package com.ghilly.controller;
 
 
 
+import com.ghilly.classes.Country;
 import com.ghilly.service.CountryService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/countries")
@@ -17,27 +20,27 @@ public class CountryController {
     }
 
     @PostMapping ("/")
-    public String createCountry(){
-        return "This is the POST method from controller.";
+    public void create( String name){
+        countryService.add(name);
     }
 
     @GetMapping("/")
-    public String getCountries(){
-        return "This is the GET method for all the countries from controller.";
+    public List <Country> getCountries(){
+        return countryService.receiveList();
     }
 
     @GetMapping("/{countryId}")
-    public String getCountry(@PathVariable String countryId){
-        return "This is the GET method for a country from controller " + countryId;
+    public String getCountry(@PathVariable int countryId){
+        return countryService.receiveCountry(countryId);
     }
 
     @PutMapping("/{countryId}")
-    public String updateCountry(@PathVariable String countryId){
-        return "This is the PUT method from controller " + countryId;
+    public void update(@PathVariable int countryId, String newName){
+        countryService.upgrade(countryId, newName);
     }
 
     @DeleteMapping("/{countryId}")
-    public String deleteCountry(@PathVariable String countryId){
-        return "This is the DELETE method from controller " + countryId;
+    public void delete(@PathVariable int countryId){
+        countryService.clear(countryId);
     }
 }
